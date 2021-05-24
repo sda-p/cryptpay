@@ -1,5 +1,7 @@
 	//Wallet interaction script
 
+
+
 async function requestAccount() { //Enable Metamask
     await window.ethereum.request({ method: 'eth_requestAccounts' });
 }
@@ -9,8 +11,6 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
 	//Payment logic variables
-
-var tokencode = ""; //Selects which coin is paid in
 var fiatcode = ""; //Selects fiat currency for value conversion
 var fiatvalue = 0; //Selects fiat value
 
@@ -18,27 +18,42 @@ var fiatvalue = 0; //Selects fiat value
 
 	//ERC-20 addresses
 
-let validchains = new Map([ //Links supported chains to 2d array position of coin parameters
-	['1', 1],
-	//['47', 2]
-]);
-//if validchain.get(string(chainid)) != null{} //Check that chain is supported
-//chainindex = validchains.get(string(chainid));	//Get array index for chain
-
-
 //Coin params:
-/*	
-	tokenparamseth[1] = ['tokencode', 'tokenname', 'tokenaddr'];
-	switch case:
-		chainindex = 1
+
+function supportedtokens(chainindex)
+{
+	switch(chainindex)
+	{
+		case 1:
 			tokenparams = [
-								'tokencode','tokenname', 'tokenaddr',
-								'tokencode','tokenname', 'tokenaddr',
-								'tokencode','tokenname', 'tokenaddr'
-							 ];
-*/
+							'ethereum','ETH', 'tokenaddr',
+							'bitcoin','wBTC', '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+							'tether','USDT', '0xdAC17F958D2ee523a2206206994597C13D831ec7'
+						  ];
+			break;
+		case 250:
+			tokenparams = [
+							'fantom','FTM', 'tokenaddr',
+							'tokencode','tokenname', 'tokenaddr',
+							'tokencode','tokenname', 'tokenaddr'
+						  ];
+			break;
+		case 56:
+			tokenparams = [
+							'tokencode','tokenname', 'tokenaddr',
+							'tokencode','tokenname', 'tokenaddr',
+							'tokencode','tokenname', 'tokenaddr'
+						  ];
+			break;
+		case default:
+			//error
+			
+	}
+}
 
 
+
+		//Drop-down list
 var select = document.getElementById('tokenselect');
 select.onclick = function() { //Create drop-down list of selected items
  for (var x=0; x<tokenparams.length/3; x++)	{ //Iterate through every set of coin parameters
@@ -47,19 +62,17 @@ select.onclick = function() { //Create drop-down list of selected items
 		option.text=tokenparams[x+1];
 		
 		select.appendChild(option);		
- }	
+ }
 }
-
-//Drop-down list
 
 
 
 
 	//ERC-20 ABI
-
+const ercabi = [{"constant":true,"inputs":[],"name":"mintingFinished","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_token","type":"address"}],"name":"reclaimToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"mint","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"claimOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_subtractedValue","type":"uint256"}],"name":"decreaseApproval","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"finishMinting","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_addedValue","type":"uint256"}],"name":"increaseApproval","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pendingOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"burner","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[],"name":"MintFinished","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"}],"name":"OwnershipRenounced","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}];
 
 	//Contract object
-
+const erc20 = new ethers.Contract(tokenaddr, ercabi, signer);
 
 	//Conversion rate
 
