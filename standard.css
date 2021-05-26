@@ -1,0 +1,145 @@
+
+
+.tokenselect {
+width: 100% !important;
+position: relative;
+font-family:Spartan, sans-serif;
+cursor: pointer;
+font-weight: 600;
+text-align:center;
+-webkit-text-size-adjust: 100%;
+}
+
+#tokenselect {
+width: 100% !important;
+position: relative;
+font-family:arial, sans-serif;
+cursor: pointer;
+font-weight: 400;
+text-align:center;
+-webkit-text-size-adjust: 90%;
+}
+
+#tokenselect  select{
+	
+}
+
+.seloption {
+margin-top:20px !important;
+}
+
+#ddlist {z-index:-1;}
+
+.slide-image-ecomm:hover .ddcontent{display:block;}
+
+.show {display:block !important;}
+
+.disabled {
+background-color: #865161 !important;
+cursor: not-allowed !important;
+}
+
+#pdisplay {
+font-family:Spartan, sans-serif;
+font-weight: 600;
+-webkit-text-size-adjust: 100%;
+font-size:14px;
+color: white;
+position: relative;
+margin-top:10px;
+}
+
+
+.wholescreen {
+position: fixed;
+width:100%;
+height:100%;
+z-index:1000;
+display:none;
+}
+.rcptwin {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+xmargin-left:2.5%;
+margin-right:2.5%;
+margin-top:5%;
+margin-bottom:2.5%;
+min-width:500px;
+width:40%;
+min-height:450px;
+height:400px;
+background: black;
+z-index: 1000;
+opacity: 0.9;
+}
+
+#rcpttl{
+font-family:Spartan, sans-serif;
+font-weight: 600;
+-webkit-text-size-adjust: 100%;
+font-size:20px;
+color: white;
+padding:10px;
+}
+
+#closewin {
+font-family:Spartan, sans-serif;
+font-weight: 600;
+-webkit-text-size-adjust: 100%;
+font-size:20px;
+color: white;
+padding:10px;
+padding-top:50px;
+position: absolute;
+top: 90%;
+left: 50%;
+transform: translate(-50%, -50%);
+cursor:pointer;
+}
+
+#txblock {
+font-family:Spartan, sans-serif;
+font-weight: 600;
+-webkit-text-size-adjust: 100%;
+font-size:16px;
+color: white;
+padding:10px;
+margin-top:100px;
+word-wrap: break-word;
+}
+#cname {
+font-family:Spartan, sans-serif;
+font-weight: 600;
+-webkit-text-size-adjust: 100%;
+font-size:16px;
+color: white;
+padding:10px;
+margin-top:30px;
+}
+#smallprint{
+width:100%;
+text-align: center;
+font-family:Spartan, sans-serif;
+font-weight: 550;
+-webkit-text-size-adjust: 100%;
+font-size:14px;
+padding-top:20px;
+color:grey;
+}
+
+#ctime {
+font-family:Spartan, sans-serif;
+font-weight: 600;
+-webkit-text-size-adjust: 100%;
+font-size:16px;
+color: white;
+padding:10px;
+margin-top:30px;
+}
+
+
+#cryptPay {
+	text-align: center;	
+}
